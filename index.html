@@ -706,34 +706,12 @@
 
 <script>
     (function() {
-        const initAegisStream = () => {
+        const initStream = () => {
             const iframe = document.getElementById("kickPlayer");
-            const host = window.location.hostname;
-            
-            // Whitelist for all Aegis deployment environments
-            const parents = [
-                host,
-                'static.app',
-                'codesandbox.io',
-                'localhost'
-            ];
-
-            const parentParams = parents.map(p => `parent=${p}`).join('&');
-
-            /* PROTOCOL UPDATE: 
-               - autoplay=1 (Starts immediately)
-               - muted=1 (Ensures browser bypasses block)
-            */
-            const streamUrl = `https://player.kick.com/aegiscommand?autoplay=1&muted=1&${parentParams}`;
-            
+            const streamUrl = "https://player.kick.com/aegiscommand?autoplay=1&muted=1&parent=" + window.location.hostname;
             iframe.src = streamUrl;
         };
-
-        if (document.readyState === 'complete') {
-            initAegisStream();
-        } else {
-            window.addEventListener('load', initAegisStream);
-        }
+        window.addEventListener('load', initStream);
     })();
 </script>
         </div>
@@ -897,6 +875,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
