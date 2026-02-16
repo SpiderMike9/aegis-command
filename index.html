@@ -1,945 +1,1139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aegis Command Apex - Tactical Operations Hub</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --void-black: #050505;
-            --biotic-blue: #00f0ff;
-            --alert-red: #ff0033;
-            --legendary-gold: #ffd700;
-        }
+      :root {
+        --void-black: #050505;
+        --biotic-blue: #00f0ff;
+        --alert-red: #ff0033;
+        --legendary-gold: #ffd700;
+      }
 
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #050505 100%);
-            color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
-        }
+      body {
+        font-family: "Rajdhani", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #000000 0%,
+          #0a0a0a 50%,
+          #050505 100%
+        );
+        color: #ffffff;
+        overflow-x: hidden;
+        position: relative;
+      }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg, rgba(0, 240, 255, 0.03) 0px, transparent 1px, transparent 2px, rgba(0, 240, 255, 0.03) 3px),
-                repeating-linear-gradient(90deg, rgba(0, 240, 255, 0.03) 0px, transparent 1px, transparent 2px, rgba(0, 240, 255, 0.03) 3px);
-            pointer-events: none;
-            z-index: 1;
-        }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 240, 255, 0.03) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(0, 240, 255, 0.03) 3px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgba(0, 240, 255, 0.03) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(0, 240, 255, 0.03) 3px
+          );
+        pointer-events: none;
+        z-index: 1;
+      }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+      }
 
-        /* Header */
-        header {
-            padding: 30px 0;
-            border-bottom: 2px solid var(--biotic-blue);
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+      /* Header */
+      header {
+        padding: 30px 0;
+        border-bottom: 2px solid var(--biotic-blue);
+        background: rgba(5, 5, 5, 0.8);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
 
+      .logo {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        background: linear-gradient(
+          90deg,
+          var(--biotic-blue),
+          var(--legendary-gold)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 3px;
+        text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+      }
+
+      .tagline {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.2rem;
+        color: var(--alert-red);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 10px;
+        text-shadow: 0 0 10px rgba(255, 0, 51, 0.8);
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-family: "Orbitron", sans-serif;
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: var(--biotic-blue);
+        text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+        animation: glitchText 3s infinite;
+      }
+
+      .keyframes glitchText {
+        0%,
+        90%,
+        100% {
+          transform: translate(0);
+        }
+        92% {
+          transform: translate(-2px, 2px);
+        }
+        94% {
+          transform: translate(2px, -2px);
+        }
+        96% {
+          transform: translate(-2px, -2px);
+        }
+      }
+
+      .hero-description {
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+        color: #cccccc;
+        letter-spacing: 1px;
+      }
+
+      .cta-primary {
+        display: inline-block;
+        padding: 20px 50px;
+        background: linear-gradient(135deg, var(--biotic-blue), #0088cc);
+        color: #000;
+        text-decoration: none;
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: 2px solid var(--biotic-blue);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        letter-spacing: 2px;
+      }
+
+      .cta-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: left 0.5s;
+      }
+
+      .cta-primary:hover::before {
+        left: 100%;
+      }
+
+      .cta-primary:hover {
+        box-shadow: 0 0 30px var(--biotic-blue);
+        transform: scale(1.05);
+      }
+
+      /* Stats Dashboard */
+      .stats-dashboard {
+        padding: 60px 0;
+        background: rgba(0, 240, 255, 0.05);
+        border-top: 2px solid var(--biotic-blue);
+        border-bottom: 2px solid var(--biotic-blue);
+      }
+
+      .stats-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--legendary-gold);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+
+      .stat-card {
+        background: rgba(0, 240, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--biotic-blue);
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(0, 240, 255, 0.1),
+          transparent
+        );
+        animation: rotate 4s linear infinite;
+      }
+
+      .keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .stat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4);
+        border-color: var(--legendary-gold);
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .stat-value {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--biotic-blue);
+        position: relative;
+        z-index: 2;
+      }
+
+      .stat-value.gold {
+        color: var(--legendary-gold);
+      }
+
+      /* Live Feed */
+      .live-feed {
+        background: rgba(255, 0, 51, 0.1);
+        border: 2px solid var(--alert-red);
+        border-radius: 10px;
+        padding: 30px;
+        backdrop-filter: blur(10px);
+      }
+
+      .feed-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.5rem;
+        color: var(--alert-red);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .feed-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border-left: 3px solid var(--legendary-gold);
+        margin-bottom: 10px;
+        transition: all 0.3s;
+      }
+
+      .feed-item:hover {
+        background: rgba(0, 240, 255, 0.1);
+        border-left-color: var(--biotic-blue);
+        transform: translateX(10px);
+      }
+
+      .feed-user {
+        color: var(--biotic-blue);
+        font-weight: 600;
+      }
+
+      .feed-time {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .feed-amount {
+        color: var(--legendary-gold);
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+
+      /* Intel Grid (6 Cards) */
+      .intel-section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 60px;
+        color: var(--biotic-blue);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+      }
+
+      .intel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+      }
+
+      .intel-card {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid var(--biotic-blue);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.4s;
+        position: relative;
+      }
+
+      .intel-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        box-shadow: 0 20px 60px rgba(0, 240, 255, 0.5);
+        border-color: var(--legendary-gold);
+      }
+
+      .intel-card:hover .intel-image {
+        filter: brightness(1.2) contrast(1.1);
+      }
+
+      .intel-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        filter: brightness(0.7) contrast(1.2);
+        transition: all 0.4s;
+      }
+
+      .intel-content {
+        padding: 30px;
+      }
+
+      .intel-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.8rem;
+        color: var(--biotic-blue);
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .intel-description {
+        color: #cccccc;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+      }
+
+      .intel-btn {
+        display: inline-block;
+        padding: 15px 35px;
+        background: rgba(0, 240, 255, 0.2);
+        border: 2px solid var(--biotic-blue);
+        color: var(--biotic-blue);
+        text-decoration: none;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .intel-btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: var(--biotic-blue);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.5s, height 0.5s;
+      }
+
+      .intel-btn:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .intel-btn:hover {
+        color: #000;
+        border-color: var(--legendary-gold);
+        box-shadow: 0 0 20px var(--biotic-blue);
+      }
+
+      .intel-btn span {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Deployment Tiers */
+      .deployment-section {
+        padding: 80px 0;
+        background: rgba(255, 0, 51, 0.05);
+        border-top: 2px solid var(--alert-red);
+      }
+
+      .tier-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      .tier-card {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        border: 3px solid;
+        border-radius: 15px;
+        padding: 40px;
+        text-align: center;
+        transition: all 0.4s;
+        position: relative;
+      }
+
+      .tier-card.tier-3 {
+        border-color: var(--biotic-blue);
+      }
+
+      .tier-card.tier-2 {
+        border-color: var(--legendary-gold);
+      }
+
+      .tier-card.tier-1 {
+        border-color: var(--alert-red);
+      }
+
+      .tier-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 240, 255, 0.4);
+      }
+
+      .tier-badge {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+      }
+
+      .tier-3 .tier-badge {
+        color: var(--biotic-blue);
+      }
+
+      .tier-2 .tier-badge {
+        color: var(--legendary-gold);
+      }
+
+      .tier-1 .tier-badge {
+        color: var(--alert-red);
+      }
+
+      .tier-price {
+        font-size: 2rem;
+        color: var(--legendary-gold);
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      .tier-description {
+        color: #cccccc;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
+      }
+
+      .tier-earnings {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.3rem;
+        color: var(--biotic-blue);
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+
+      .tier-btn {
+        display: inline-block;
+        padding: 18px 40px;
+        background: transparent;
+        border: 2px solid;
+        color: inherit;
+        text-decoration: none;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+      }
+
+      .tier-3 .tier-btn {
+        border-color: var(--biotic-blue);
+        color: var(--biotic-blue);
+      }
+
+      .tier-3 .tier-btn:hover {
+        background: var(--biotic-blue);
+        color: #000;
+      }
+
+      .tier-2 .tier-btn {
+        border-color: var(--legendary-gold);
+        color: var(--legendary-gold);
+      }
+
+      .tier-2 .tier-btn:hover {
+        background: var(--legendary-gold);
+        color: #000;
+      }
+
+      .tier-1 .tier-btn {
+        border-color: var(--alert-red);
+        color: var(--alert-red);
+      }
+
+      .tier-1 .tier-btn:hover {
+        background: var(--alert-red);
+        color: #fff;
+      }
+
+      /* Alert Box */
+      .alert-box {
+        background: rgba(255, 0, 51, 0.2);
+        border: 3px solid var(--alert-red);
+        border-radius: 15px;
+        padding: 40px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        animation: pulse 2s infinite;
+      }
+
+      .keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(255, 0, 51, 0.8);
+        }
+      }
+
+      .alert-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2rem;
+        color: var(--alert-red);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .alert-message {
+        font-size: 1.3rem;
+        color: #fff;
+        margin-bottom: 15px;
+      }
+
+      .alert-slots {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.5rem;
+        color: var(--legendary-gold);
+        font-weight: 900;
+        margin-bottom: 30px;
+      }
+
+      .alert-cta {
+        display: inline-block;
+        padding: 20px 50px;
+        background: var(--alert-red);
+        color: #fff;
+        text-decoration: none;
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+        border: 2px solid var(--alert-red);
+      }
+
+      .alert-cta:hover {
+        background: transparent;
+        box-shadow: 0 0 30px var(--alert-red);
+        transform: scale(1.05);
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 0;
+        text-align: center;
+        border-top: 2px solid var(--biotic-blue);
+        background: rgba(5, 5, 5, 0.9);
+        margin-top: 80px;
+      }
+
+      footer p {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      /* Mobile Responsive */
+      .media (max-width: 768px) {
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, var(--biotic-blue), var(--legendary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 3px;
-            text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-        }
-
-        .tagline {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: var(--alert-red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 10px;
-            text-shadow: 0 0 10px rgba(255, 0, 51, 0.8);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 60px 0;
-            text-align: center;
+          font-size: 1.8rem;
         }
 
         .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            color: var(--biotic-blue);
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
-            animation: glitchText 3s infinite;
-        }
-
-        .keyframes glitchText {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-2px, 2px); }
-            94% { transform: translate(2px, -2px); }
-            96% { transform: translate(-2px, -2px); }
+          font-size: 2rem;
         }
 
         .hero-description {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            color: #cccccc;
-            letter-spacing: 1px;
-        }
-
-        .cta-primary {
-            display: inline-block;
-            padding: 20px 50px;
-            background: linear-gradient(135deg, var(--biotic-blue), #0088cc);
-            color: #000;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            border: 2px solid var(--biotic-blue);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            letter-spacing: 2px;
-        }
-
-        .cta-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.3);
-            transition: left 0.5s;
-        }
-
-        .cta-primary:hover::before {
-            left: 100%;
-        }
-
-        .cta-primary:hover {
-            box-shadow: 0 0 30px var(--biotic-blue);
-            transform: scale(1.05);
-        }
-
-        /* Stats Dashboard */
-        .stats-dashboard {
-            padding: 60px 0;
-            background: rgba(0, 240, 255, 0.05);
-            border-top: 2px solid var(--biotic-blue);
-            border-bottom: 2px solid var(--biotic-blue);
-        }
-
-        .stats-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--legendary-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
+          font-size: 1.2rem;
         }
 
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .stat-card {
-            background: rgba(0, 240, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--biotic-blue);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 240, 255, 0.1), transparent);
-            animation: rotate 4s linear infinite;
-        }
-
-        .keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4);
-            border-color: var(--legendary-gold);
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--biotic-blue);
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-value.gold {
-            color: var(--legendary-gold);
-        }
-
-        /* Live Feed */
-        .live-feed {
-            background: rgba(255, 0, 51, 0.1);
-            border: 2px solid var(--alert-red);
-            border-radius: 10px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .feed-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: var(--alert-red);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .feed-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border-left: 3px solid var(--legendary-gold);
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-
-        .feed-item:hover {
-            background: rgba(0, 240, 255, 0.1);
-            border-left-color: var(--biotic-blue);
-            transform: translateX(10px);
-        }
-
-        .feed-user {
-            color: var(--biotic-blue);
-            font-weight: 600;
-        }
-
-        .feed-time {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .feed-amount {
-            color: var(--legendary-gold);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        /* Intel Grid (6 Cards) */
-        .intel-section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 60px;
-            color: var(--biotic-blue);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+          grid-template-columns: 1fr;
         }
 
         .intel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .intel-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--biotic-blue);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .intel-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 240, 255, 0.5);
-            border-color: var(--legendary-gold);
-        }
-
-        .intel-card:hover .intel-image {
-            filter: brightness(1.2) contrast(1.1);
-        }
-
-        .intel-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            filter: brightness(0.7) contrast(1.2);
-            transition: all 0.4s;
-        }
-
-        .intel-content {
-            padding: 30px;
-        }
-
-        .intel-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--biotic-blue);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .intel-description {
-            color: #cccccc;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .intel-btn {
-            display: inline-block;
-            padding: 15px 35px;
-            background: rgba(0, 240, 255, 0.2);
-            border: 2px solid var(--biotic-blue);
-            color: var(--biotic-blue);
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .intel-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--biotic-blue);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.5s, height 0.5s;
-        }
-
-        .intel-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .intel-btn:hover {
-            color: #000;
-            border-color: var(--legendary-gold);
-            box-shadow: 0 0 20px var(--biotic-blue);
-        }
-
-        .intel-btn span {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Deployment Tiers */
-        .deployment-section {
-            padding: 80px 0;
-            background: rgba(255, 0, 51, 0.05);
-            border-top: 2px solid var(--alert-red);
+          grid-template-columns: 1fr;
         }
 
         .tier-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+          grid-template-columns: 1fr;
         }
 
-        .tier-card {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border: 3px solid;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.4s;
-            position: relative;
+        .section-title {
+          font-size: 2rem;
         }
 
-        .tier-card.tier-3 {
-            border-color: var(--biotic-blue);
+        .video-wrapper {
+          position: relative;
+          width: 100%;
+          padding-top: 56.25%;
+          background: #000;
+          margin: 30px 0;
+          min-height: 300px;
         }
 
-        .tier-card.tier-2 {
-            border-color: var(--legendary-gold);
+        .video-wrapper iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
         }
 
-        .tier-card.tier-1 {
-            border-color: var(--alert-red);
+        .hero {
+          position: relative;
+          z-index: 5;
+          background: var(
+            --void-black
+          ); /* Solid background blocks the heavy grid animation */
+          padding: 60px 0;
+          text-align: center;
         }
 
-        .tier-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 60px rgba(0, 240, 255, 0.4);
+        .video-wrapper {
+          position: relative;
+          width: 100%;
+          padding-top: 56.25%;
+          background: #000;
+          margin: 30px 0;
+          /* Force Hardware Acceleration */
+          transform: translate3d(0, 0, 0);
+          -webkit-transform: translate3d(0, 0, 0);
+          box-shadow: 0 0 50px rgba(0, 240, 255, 0.2); /* Soft glow instead of heavy filters */
         }
+      }
+      .hero-video {
+        position: relative;
+        height: 100vh;
+        min-height: 80vh;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
 
-        .tier-badge {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
+      .video-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
 
-        .tier-3 .tier-badge {
-            color: var(--biotic-blue);
-        }
+      .video-bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+      }
 
-        .tier-2 .tier-badge {
-            color: var(--legendary-gold);
-        }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 20px;
+        color: white;
+        background: rgba(0, 0, 0, 0.35);
+      }
 
-        .tier-1 .tier-badge {
-            color: var(--alert-red);
-        }
+      .credit {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.85rem;
+        color: #888;
+        z-index: 3;
+      }
 
-        .tier-price {
-            font-size: 2rem;
-            color: var(--legendary-gold);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .tier-description {
-            color: #cccccc;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-
-        .tier-earnings {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            color: var(--biotic-blue);
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-
-        .tier-btn {
-            display: inline-block;
-            padding: 18px 40px;
-            background: transparent;
-            border: 2px solid;
-            color: inherit;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-        }
-
-        .tier-3 .tier-btn {
-            border-color: var(--biotic-blue);
-            color: var(--biotic-blue);
-        }
-
-        .tier-3 .tier-btn:hover {
-            background: var(--biotic-blue);
-            color: #000;
-        }
-
-        .tier-2 .tier-btn {
-            border-color: var(--legendary-gold);
-            color: var(--legendary-gold);
-        }
-
-        .tier-2 .tier-btn:hover {
-            background: var(--legendary-gold);
-            color: #000;
-        }
-
-        .tier-1 .tier-btn {
-            border-color: var(--alert-red);
-            color: var(--alert-red);
-        }
-
-        .tier-1 .tier-btn:hover {
-            background: var(--alert-red);
-            color: #fff;
-        }
-
-        /* Alert Box */
-        .alert-box {
-            background: rgba(255, 0, 51, 0.2);
-            border: 3px solid var(--alert-red);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            animation: pulse 2s infinite;
-        }
-
-        .keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 51, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 51, 0.8); }
-        }
-
-        .alert-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: var(--alert-red);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .alert-message {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .alert-slots {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: var(--legendary-gold);
-            font-weight: 900;
-            margin-bottom: 30px;
-        }
-
-        .alert-cta {
-            display: inline-block;
-            padding: 20px 50px;
-            background: var(--alert-red);
-            color: #fff;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            border: 2px solid var(--alert-red);
-        }
-
-        .alert-cta:hover {
-            background: transparent;
-            box-shadow: 0 0 30px var(--alert-red);
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            text-align: center;
-            border-top: 2px solid var(--biotic-blue);
-            background: rgba(5, 5, 5, 0.9);
-            margin-top: 80px;
-        }
-
-        footer p {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        /* Mobile Responsive */
-        .media (max-width: 768px) {
-            .logo {
-                font-size: 1.8rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero-description {
-                font-size: 1.2rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .intel-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .tier-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    background: #000;
-    margin: 30px 0;
-    min-height: 300px;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-.hero {
-    position: relative;
-    z-index: 5;
-    background: var(--void-black); /* Solid background blocks the heavy grid animation */
-    padding: 60px 0;
-    text-align: center;
-}
-
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    background: #000;
-    margin: 30px 0;
-    /* Force Hardware Acceleration */
-    transform: translate3d(0, 0, 0); 
-    -webkit-transform: translate3d(0, 0, 0);
-    box-shadow: 0 0 50px rgba(0, 240, 255, 0.2); /* Soft glow instead of heavy filters */
-}
-        } 
-        .hero-video {
-  position: relative;
-  height: 100vh;
-  min-height: 80vh;
-  overflow: hidden;
-  background: #0a0a0a;
-}
-
-.video-wrapper {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.video-bg {
-  position: absolute;
-  top: 50%; left: 50%;
-  min-width: 100%; min-height: 100%;
-  width: auto; height: auto;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 0 20px;
-  color: white;
-  background: rgba(0,0,0,0.35);
-}
-
-.credit {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  font-size: 0.85rem;
-  color: #888;
-  z-index: 3;
-}
-
-.credit a { 
-  color: #ff0033; 
-  text-decoration: none; 
-}
+      .credit a {
+        color: #ff0033;
+        text-decoration: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <section class="hero-video">
-  <div class="video-wrapper">
-    <iframe 
-      class="video-bg"
-      src="https://www.youtube.com/embed/Gkg48lWH3v8?autoplay=1&mute=1&controls=0&loop=1&playlist=Gkg48lWH3v8&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
-    </iframe>
-  </div>
+      <div class="video-wrapper">
+        <iframe
+          class="video-bg"
+          src="https://www.youtube.com/embed/Gkg48lWH3v8?autoplay=1&mute=1&controls=0&loop=1&playlist=Gkg48lWH3v8&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
 
-  <div class="hero-content">
-    <h1>Stop Playing Once Human for Free.<br/>Unlock Your AI-Powered Gaming Income System.</h1>
-    <p class="subtitle">Aegis Command is not a clan; it's a Digital Ownership Label.<br/>Start Free, Earn Fast, and Scale to Leadership.</p>
-    <a href="https://discord.gg/dPhrsnEkXN" class="cta-button">Join Aegis Command Now (Start Free)</a>
-  </div>
+      <div class="hero-content">
+        <h1>
+          Stop Playing Once Human for Free.<br />Unlock Your AI-Powered Gaming
+          Income System.
+        </h1>
+        <p class="subtitle">
+          Aegis Command is not a clan; it's a Digital Ownership Label.<br />Start
+          Free, Earn Fast, and Scale to Leadership.
+        </p>
+        <a href="https://discord.gg/dPhrsnEkXN" class="cta-button"
+          >Join Aegis Command Now (Start Free)</a
+        >
+      </div>
 
-  <div class="credit">
-    Featured Build: Blackfell Estates by <a href="https://www.youtube.com/@DoctorChaoGaming" target="_blank">Doctor Chao Gaming</a>
-  </div>
-</section>
+      <div class="credit">
+        Featured Build: Blackfell Estates by
+        <a href="https://www.youtube.com/@DoctorChaoGaming" target="_blank"
+          >Doctor Chao Gaming</a
+        >
+      </div>
+    </section>
 
     <section class="hero">
-        <div class="container">
-            <h1>Deploy Your Assets. Maximize Revenue.</h1>
-<p class="hero-description">Live Tactical Command Feed</p>
+      <div class="container">
+        <h1>Deploy Your Assets. Maximize Revenue.</h1>
+        <p class="hero-description">Live Tactical Command Feed</p>
 
-<div class="video-wrapper" style="position: relative; width: 100%; padding-top: 56.25%; background: #000; margin: 30px 0; border: 3px solid #ff0033; border-radius: 12px; overflow: hidden; box-shadow: 0 0 40px rgba(255, 0, 51, 0.4);">
-    <iframe
-        id="kickPlayer"
-        loading="eager"
-        title="Aegis Command Live Tactical Feed"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;">
-    </iframe>
-    
-    <!-- Live Badge -->
-    <div style="position: absolute; top: 16px; left: 16px; background: #ff0033; color: white; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; padding: 6px 14px; border-radius: 4px; font-weight: 700; letter-spacing: 1px; z-index: 10; box-shadow: 0 0 15px rgba(255,0,51,0.6);">
-        ● LIVE TACTICAL FEED
-    </div>
-</div>
+        <div
+          class="video-wrapper"
+          style="
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+            margin: 30px 0;
+            border: 3px solid #ff0033;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(255, 0, 51, 0.4);
+          "
+        >
+          <iframe
+            id="kickPlayer"
+            loading="eager"
+            title="Aegis Command Live Tactical Feed"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              border: 0;
+            "
+          >
+          </iframe>
 
-<a href="https://discord.gg/dPhrsnEkXN" class="cta-primary">ACTIVATE OPERATOR STATUS</a>
-
-<script>
-    (function() {
-        const initStream = () => {
-            const iframe = document.getElementById("kickPlayer");
-            const streamUrl = "https://player.kick.com/aegiscommand?autoplay=1&muted=1&parent=" + window.location.hostname;
-            iframe.src = streamUrl;
-        };
-        window.addEventListener('load', initStream);
-    })();
-</script>
+          <!-- Live Badge -->
+          <div
+            style="
+              position: absolute;
+              top: 16px;
+              left: 16px;
+              background: #ff0033;
+              color: white;
+              font-family: 'Orbitron', sans-serif;
+              font-size: 0.9rem;
+              padding: 6px 14px;
+              border-radius: 4px;
+              font-weight: 700;
+              letter-spacing: 1px;
+              z-index: 10;
+              box-shadow: 0 0 15px rgba(255, 0, 51, 0.6);
+            "
+          >
+            ● LIVE TACTICAL FEED
+          </div>
         </div>
+
+        <a href="https://discord.gg/dPhrsnEkXN" class="cta-primary"
+          >ACTIVATE OPERATOR STATUS</a
+        >
+
+        <script>
+          (function () {
+            const initStream = () => {
+              const iframe = document.getElementById("kickPlayer");
+              const streamUrl =
+                "https://player.kick.com/aegiscommand?autoplay=1&muted=1&parent=" +
+                window.location.hostname;
+              iframe.src = streamUrl;
+            };
+            window.addEventListener("load", initStream);
+          })();
+        </script>
+      </div>
     </section>
 
     <section class="stats-dashboard">
-        <div class="container">
-            <h2 class="stats-title">Mission Statistics: Live Intel</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Operations Revenue</div>
-                    <div class="stat-value gold">$124,500.00</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Active Operator Payouts</div>
-                    <div class="stat-value">$88,200.00</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Asset Performance</div>
-                    <div class="stat-value">1.2M</div>
-                    <div class="stat-label">Aegis Anthem Streams</div>
-                </div>
-            </div>
-
-            <div class="live-feed">
-                <h3 class="feed-title">⚡ Live Payout Feed</h3>
-                <div class="feed-item">
-                    <div>
-                        <div class="feed-user">@Creators</div>
-                        <div class="feed-time">2 mins ago</div>
-                    </div>
-                    <div class="feed-amount">+$20.00</div>
-                </div>
-                <div class="feed-item">
-                    <div>
-                        <div class="feed-user">@AegisOperators</div>
-                        <div class="feed-time">14 mins ago</div>
-                    </div>
-                    <div class="feed-amount">+$300.00</div>
-                </div>
-                <div class="feed-item">
-                    <div>
-                        <div class="feed-user">@ApexCommander</div>
-                        <div class="feed-time">1 hour ago</div>
-                    </div>
-                    <div class="feed-amount">+$1,500.00</div>
-                </div>
-            </div>
+      <div class="container">
+        <h2 class="stats-title">Mission Statistics: Live Intel</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Operations Revenue</div>
+            <div class="stat-value gold">$124,500.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active Operator Payouts</div>
+            <div class="stat-value">$88,200.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Top Asset Performance</div>
+            <div class="stat-value">1.2M</div>
+            <div class="stat-label">Aegis Anthem Streams</div>
+          </div>
         </div>
+
+        <div class="live-feed">
+          <h3 class="feed-title">⚡ Live Payout Feed</h3>
+          <div class="feed-item">
+            <div>
+              <div class="feed-user">@Creators</div>
+              <div class="feed-time">2 mins ago</div>
+            </div>
+            <div class="feed-amount">+$20.00</div>
+          </div>
+          <div class="feed-item">
+            <div>
+              <div class="feed-user">@AegisOperators</div>
+              <div class="feed-time">14 mins ago</div>
+            </div>
+            <div class="feed-amount">+$300.00</div>
+          </div>
+          <div class="feed-item">
+            <div>
+              <div class="feed-user">@ApexCommander</div>
+              <div class="feed-time">1 hour ago</div>
+            </div>
+            <div class="feed-amount">+$1,500.00</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="intel-section">
-        <div class="container">
-            <h2 class="section-title">Operational Intel: Six Directives</h2>
-            <div class="intel-grid">
-                <!-- PLACEHOLDER: Replace with tactical/blueprint image -->
-                <div class="intel-card">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" alt="Tactical Expertise" class="intel-image">
-                    <div class="intel-content">
-                        <h3 class="intel-title">Tactical Expertise</h3>
-                        <p class="intel-description">Access classified blueprints, strategic frameworks, and advanced operator training modules. Deploy cutting-edge tactics for maximum efficiency.</p>
-                        <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"><span>ACCESS INTEL</span></a>
-                    </div>
-                </div>
-
-                <!-- PLACEHOLDER: Replace with action/combat image -->
-                <div class="intel-card">
-                    <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&q=80" alt="Hot Content" class="intel-image">
-                    <div class="intel-content">
-                        <h3 class="intel-title">Hot Content Assets</h3>
-                        <p class="intel-description">Real-time combat footage, high-value gameplay captures, and trending content drops. Stream priority assets directly to your channels.</p>
-                        <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"><span>ACCESS INTEL</span></a>
-                    </div>
-                </div>
-
-                <!-- PLACEHOLDER: Replace with team/group image -->
-                <div class="intel-card">
-                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80" alt="Community Squads" class="intel-image">
-                    <div class="intel-content">
-                        <h3 class="intel-title">Community Squads</h3>
-                        <p class="intel-description">Join coordinated tactical units. Collaborate with elite operators, share resources, and execute synchronized missions for amplified rewards.</p>
-                        <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"><span>JOIN SQUAD</span></a>
-                    </div>
-                </div>
-
-                <!-- PLACEHOLDER: Replace with monster/dark entity image -->
-                <div class="intel-card">
-                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&q=80" alt="Boss Raids" class="intel-image">
-                    <div class="intel-content">
-                        <h3 class="intel-title">Boss Raid Protocols</h3>
-                        <p class="intel-description">Engage high-threat targets in coordinated strikes. Legendary loot drops, exclusive content rights, and premium payout multipliers await.</p>
-                        <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"><span>ACCESS INTEL</span></a>
-                    </div>
-                </div>
-
-                <!-- PLACEHOLDER: Replace with crate/gold image -->
-                <div class="intel-card">
-                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800&q=80" alt="Loot Payouts" class="intel-image">
-                    <div class="intel-content">
-                        <h3 class="intel-title">Loot & Payouts</h3>
-                        <p class="intel-description">Track your revenue streams in real-time. Automated payout systems, cryptocurrency integration, and transparent earnings dashboards.</p>
-                        <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"><span>ACCESS INTEL</span></a>
-                    </div>
-                </div>
-
-                <!-- PLACEHOLDER: Replace with sci-fi building/control room image -->
-                <div class="intel-card">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80" alt="Base Operations" class="intel-image">
-                    <div class="intel-content">
-                        <h3 class="intel-title">Base Operations</h3>
-                        <p class="intel-description">Command center access, analytics HQ, and resource management systems. Monitor global operations and optimize your deployment strategy.</p>
-                        <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"><span>ACCESS INTEL</span></a>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title">Operational Intel: Six Directives</h2>
+        <div class="intel-grid">
+          <!-- PLACEHOLDER: Replace with tactical/blueprint image -->
+          <div class="intel-card">
+            <img
+              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80"
+              alt="Tactical Expertise"
+              class="intel-image"
+            />
+            <div class="intel-content">
+              <h3 class="intel-title">Tactical Expertise</h3>
+              <p class="intel-description">
+                Access classified blueprints, strategic frameworks, and advanced
+                operator training modules. Deploy cutting-edge tactics for
+                maximum efficiency.
+              </p>
+              <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"
+                ><span>ACCESS INTEL</span></a
+              >
             </div>
+          </div>
+
+          <!-- PLACEHOLDER: Replace with action/combat image -->
+          <div class="intel-card">
+            <img
+              src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800&q=80"
+              alt="Hot Content"
+              class="intel-image"
+            />
+            <div class="intel-content">
+              <h3 class="intel-title">Hot Content Assets</h3>
+              <p class="intel-description">
+                Real-time combat footage, high-value gameplay captures, and
+                trending content drops. Stream priority assets directly to your
+                channels.
+              </p>
+              <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"
+                ><span>ACCESS INTEL</span></a
+              >
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER: Replace with team/group image -->
+          <div class="intel-card">
+            <img
+              src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80"
+              alt="Community Squads"
+              class="intel-image"
+            />
+            <div class="intel-content">
+              <h3 class="intel-title">Community Squads</h3>
+              <p class="intel-description">
+                Join coordinated tactical units. Collaborate with elite
+                operators, share resources, and execute synchronized missions
+                for amplified rewards.
+              </p>
+              <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"
+                ><span>JOIN SQUAD</span></a
+              >
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER: Replace with monster/dark entity image -->
+          <div class="intel-card">
+            <img
+              src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&q=80"
+              alt="Boss Raids"
+              class="intel-image"
+            />
+            <div class="intel-content">
+              <h3 class="intel-title">Boss Raid Protocols</h3>
+              <p class="intel-description">
+                Engage high-threat targets in coordinated strikes. Legendary
+                loot drops, exclusive content rights, and premium payout
+                multipliers await.
+              </p>
+              <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"
+                ><span>ACCESS INTEL</span></a
+              >
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER: Replace with crate/gold image -->
+          <div class="intel-card">
+            <img
+              src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800&q=80"
+              alt="Loot Payouts"
+              class="intel-image"
+            />
+            <div class="intel-content">
+              <h3 class="intel-title">Loot & Payouts</h3>
+              <p class="intel-description">
+                Track your revenue streams in real-time. Automated payout
+                systems, cryptocurrency integration, and transparent earnings
+                dashboards.
+              </p>
+              <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"
+                ><span>ACCESS INTEL</span></a
+              >
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER: Replace with sci-fi building/control room image -->
+          <div class="intel-card">
+            <img
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
+              alt="Base Operations"
+              class="intel-image"
+            />
+            <div class="intel-content">
+              <h3 class="intel-title">Base Operations</h3>
+              <p class="intel-description">
+                Command center access, analytics HQ, and resource management
+                systems. Monitor global operations and optimize your deployment
+                strategy.
+              </p>
+              <a href="https://discord.gg/dPhrsnEkXN" class="intel-btn"
+                ><span>ACCESS INTEL</span></a
+              >
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section class="deployment-section">
-        <div class="container">
-            <h2 class="section-title">Deployment Ladder: Choose Your Mission</h2>
-            <div class="tier-grid">
-                <div class="tier-card tier-3">
-                    <div class="tier-badge">Tier 3: Creator</div>
-                    <div class="tier-price">FREE</div>
-                    <p class="tier-description">Initiate operations. Secure your first tactical win and establish baseline revenue protocols. Zero-risk entry point for new operators.</p>
-                    <div class="tier-earnings">TARGET: $5–$20 Fast Deploy</div>
-                    <a href="https://discord.gg/dPhrsnEkXN" class="tier-btn">START DEPLOYMENT</a>
-                </div>
+      <div class="container">
+        <h2 class="section-title">Deployment Ladder: Choose Your Mission</h2>
+        <div class="tier-grid">
+          <div class="tier-card tier-3">
+            <div class="tier-badge">Tier 3: Creator</div>
+            <div class="tier-price">FREE</div>
+            <p class="tier-description">
+              Initiate operations. Secure your first tactical win and establish
+              baseline revenue protocols. Zero-risk entry point for new
+              operators.
+            </p>
+            <div class="tier-earnings">TARGET: $5–$20 Fast Deploy</div>
+            <a href="https://discord.gg/dPhrsnEkXN" class="tier-btn"
+              >START DEPLOYMENT</a
+            >
+          </div>
 
-                <div class="tier-card tier-2">
-                    <div class="tier-badge">Tier 2: Aegis Operator</div>
-                    <div class="tier-price">$4.99/mo</div>
-                    <p class="tier-description">Unlock "The Vault" archives and weekly paid mission directives. Access premium content distribution channels and enhanced payout multipliers.</p>
-                    <div class="tier-earnings">TARGET: $100–$300/month</div>
-                    <a href="https://buy.stripe.com/3cIbJ17MX9yUc8uaxr8N200" class="tier-btn">UPGRADE CLEARANCE</a>
-                </div>
+          <div class="tier-card tier-2">
+            <div class="tier-badge">Tier 2: Aegis Operator</div>
+            <div class="tier-price">$4.99/mo</div>
+            <p class="tier-description">
+              Unlock "The Vault" archives and weekly paid mission directives.
+              Access premium content distribution channels and enhanced payout
+              multipliers.
+            </p>
+            <div class="tier-earnings">TARGET: $100–$300/month</div>
+            <a
+              href="https://buy.stripe.com/3cIbJ17MX9yUc8uaxr8N200"
+              class="tier-btn"
+              >UPGRADE CLEARANCE</a
+            >
+          </div>
 
-                <div class="tier-card tier-1">
-                    <div class="tier-badge">Tier 1: Apex Commander™</div>
-                    <div class="tier-price">$39.99/mo License</div>
-                    <p class="tier-description">Claim 70% revenue share + dedicated AI Operations Assistant. Full command authority over distribution networks and priority asset allocation.</p>
-                    <div class="tier-earnings">TARGET: $1,000–$5,000+/month</div>
-                    <a href="https://discord.com/channels/1470862320203731004/1471651696303145172" class="tier-btn">SECURE LICENSE</a>
-                </div>
-            </div>
-
-            <div class="alert-box">
-                <h3 class="alert-title">⚠️ OPERATIONAL LIMIT REACHED ⚠️</h3>
-                <p class="alert-message">To ensure maximum revenue for active operators, Apex Commander licenses are restricted.</p>
-                <div class="alert-slots">ONLY 4 SLOTS REMAINING</div>
-                <a href="https://discord.com/channels/1470862320203731004/1471651696303145172" class="alert-cta">JOIN AEGIS DISCORD TO APPLY</a>
-            </div>
+          <div class="tier-card tier-1">
+            <div class="tier-badge">Tier 1: Apex Commander™</div>
+            <div class="tier-price">$39.99/mo License</div>
+            <p class="tier-description">
+              Claim 70% revenue share + dedicated AI Operations Assistant. Full
+              command authority over distribution networks and priority asset
+              allocation.
+            </p>
+            <div class="tier-earnings">TARGET: $1,000–$5,000+/month</div>
+            <a
+              href="https://discord.com/channels/1470862320203731004/1471651696303145172"
+              class="tier-btn"
+              >SECURE LICENSE</a
+            >
+          </div>
         </div>
+
+        <div class="alert-box">
+          <h3 class="alert-title">⚠️ OPERATIONAL LIMIT REACHED ⚠️</h3>
+          <p class="alert-message">
+            To ensure maximum revenue for active operators, Apex Commander
+            licenses are restricted.
+          </p>
+          <div class="alert-slots">ONLY 4 SLOTS REMAINING</div>
+          <a
+            href="https://discord.com/channels/1470862320203731004/1471651696303145172"
+            class="alert-cta"
+            >JOIN AEGIS DISCORD TO APPLY</a
+          >
+        </div>
+      </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Aegis Command Apex. All Operations Secured. Digital Ownership Protocol Active.</p>
-        </div>
+      <div class="container">
+        <p>
+          &copy; 2026 Aegis Command Apex. All Operations Secured. Digital
+          Ownership Protocol Active.
+        </p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>
-
-
-
-
-
-
